@@ -89,7 +89,7 @@ app.post('/api/quiz/:topic', async (req, res) => {
     const inputText = topic;
 
     try {
-        const response = await axios.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=YOUR_API_KEY', {
+        const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${YOUR_API_KEY}`, {
             contents: [
                 {
                     parts: [
