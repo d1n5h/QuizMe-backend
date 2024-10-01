@@ -1,0 +1,11 @@
+{
+  "name": "quizme-new",
+  "version": "1.0.0",
+  "description": "testing QuizMe for vercel",
+  "main": "index.js",
+  "scripts": {
+    "start": "node api/index.js"
+  },
+  "author": "Dinesh",
+  "license": "ISC"
+}
