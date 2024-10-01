@@ -10,7 +10,8 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+const YOUR_JWT_SECRET = "my_string";
+const YOUR_API_KEY = "AIzaSyDMA2nroI3d7ebF1BG75U-5TxlMh_IjH4I";
 let correctAnswers = [];
 
 // Connect to MongoDB (Replace 'localhost' with the actual MongoDB connection URL if you're using an external DB)
