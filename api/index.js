@@ -94,7 +94,7 @@ app.post('/api/quiz/:topic', async (req, res) => {
                 {
                     parts: [
                         {
-                            text: `The following is the input text: ${inputText}. Generate 4 true/false quiz questions with correct answers.`
+                           text: `The following is the input text: ${inputText}. Generate 4 true/false quiz questions with correct answers.espond only with a well-formatted JSON object in the following format: {"quiz": [{"question": "Question 1?", "answer": "true/false"}, {"question": "Question 2?", "answer": "true/false"}, ...]}. Ensure that the response is valid JSON with no additional text or characters.`
                         }
                     ]
                 }
@@ -107,7 +107,9 @@ app.post('/api/quiz/:topic', async (req, res) => {
         res.json({ quiz: quizData });
 
     } catch (error) {
+        console.error('Error generating quiz:', error);
         res.status(500).send('Failed to generate quiz');
+       
     }
 });
 
