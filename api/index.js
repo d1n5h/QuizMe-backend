@@ -10,12 +10,11 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
-const YOUR_JWT_SECRET = "my_string";
-const YOUR_API_KEY = "AIzaSyDMA2nroI3d7ebF1BG75U-5TxlMh_IjH4I";
+
 let correctAnswers = [];
 
 // Connect to MongoDB (Replace 'localhost' with the actual MongoDB connection URL if you're using an external DB)
-mongoose.connect('mongodb+srv://dinesh:Dinesh@cluster0.vhh08.mongodb.net/', {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -61,7 +60,7 @@ const authenticateToken = (req, res, next) => {
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) return res.sendStatus(401);
 
-    jwt.verify(token, 'YOUR_JWT_SECRET', (err, user) => {
+    jwt.verify(token,  process.env.JWT_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
         req.user = user;
         next();
@@ -76,7 +75,7 @@ app.post('/api/login', async (req, res) => {
         const user = await User.findOne({ username, password });
         if (!user) return res.status(401).send('Invalid credentials');
 
-        const token = jwt.sign({ username: user.username }, 'YOUR_JWT_SECRET');
+        const token = jwt.sign({ username: user.username },  process.env.JWT_SECRET);
         res.json({ token });
     } catch (error) {
         res.status(500).send('Server error');
@@ -89,7 +88,7 @@ app.post('/api/quiz/:topic', async (req, res) => {
     const inputText = topic;
 
     try {
-        const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${YOUR_API_KEY}`, {
+        const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`, {
             contents: [
                 {
                     parts: [
