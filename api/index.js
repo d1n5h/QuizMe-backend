@@ -14,7 +14,7 @@ app.use(express.json());
 let correctAnswers = [];
 
 // Connect to MongoDB (Replace 'localhost' with the actual MongoDB connection URL if you're using an external DB)
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect('mongodb+srv://dinesh:Dinesh@cluster0.vhh08.mongodb.net/', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
