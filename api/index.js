@@ -88,17 +88,17 @@ app.post('/api/quiz/:topic', async (req, res) => {
     const inputText = topic;
 
     try {
-        const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-            contents: [
-                {
-                    parts: [
-                        {
-                           text: `The following is the input text: ${inputText}. Generate 4 true/false quiz questions with correct answers.espond only with a well-formatted JSON object in the following format: {"quiz": [{"question": "Question 1?", "answer": "true/false"}, {"question": "Question 2?", "answer": "true/false"}, ...]}. Ensure that the response is valid JSON with no additional text or characters.`
-                        }
-                    ]
-                }
-            ]
-        });
+    const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+        contents: [
+            {
+                parts: [
+                    {
+                        text: `The following is the input text: ${inputText}. Generate 4 true/false quiz questions with correct answers. Respond only with a well-formatted JSON object in the following format: {"quiz": [{"question": "Question 1?", "answer": "true/false"}, {"question": "Question 2?", "answer": "true/false"}, ...]}. Ensure that the response is valid JSON with no additional text or characters.`
+                    }
+                ]
+            }
+        ]
+    });
 
         const quizText = response.data.candidates[0].content.parts[0].text;
         const quizData = JSON.parse(quizText);
