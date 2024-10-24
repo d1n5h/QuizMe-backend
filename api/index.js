@@ -1,4 +1,3 @@
-// mongodb+srv://dinesh:Dinesh@cluster0.vhh08.mongodb.net/
 
 // /api/index.js
 const express = require('express');
@@ -13,13 +12,13 @@ app.use(express.json());
 
 let correctAnswers = [];
 
-// Connect to MongoDB (Replace 'localhost' with the actual MongoDB connection URL if you're using an external DB)
+
 mongoose.connect('mongodb+srv://dinesh:Dinesh@cluster0.vhh08.mongodb.net/', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
     console.log('MongoDB connected');
-    initializeDummyUser();  // Initialize dummy user after connection
+    initializeDummyUser();  // Initialize  user after connection
 }).catch(err => console.log("Error connecting to MongoDB: " + err));
 
 // User Model
@@ -38,7 +37,7 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-// Function to initialize dummy user
+// Function to initialize  user
 const initializeDummyUser = async () => {
     try {
         const existingUser = await User.findOne({ username: 'abcd' });
